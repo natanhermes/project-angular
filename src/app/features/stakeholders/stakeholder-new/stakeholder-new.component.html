@@ -1,0 +1,40 @@
+<div class="max-w-5xl mx-auto">
+  <p-card>
+    <app-heading title="Cadastro de Partes Interessadas" customTitleClass="text-xl"></app-heading>
+    <form [formGroup]="stakeholderForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <p-floatlabel>
+          <input type="text" pInputText id="name" class="w-full" formControlName="name" autocomplete="off" />
+          <label>Nome Completo *</label>
+        </p-floatlabel>
+
+        <p-floatlabel class="w-full">
+          <p-select formControlName="type" inputId="type" [options]="peopleTypes" class="w-full" />
+          <label>Tipo de Pessoa *</label>
+        </p-floatlabel>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <p-floatlabel>
+          <p-inputmask id="cpfCnpj" name="cpfCnpj" formControlName="cpfCnpj" mask="999.999.999-99" />
+          <label>CPF/CNPJ *</label>
+        </p-floatlabel>
+
+
+        <p-floatlabel>
+          <input pInputText id="email" formControlName="email" class="w-full" autocomplete="off" />
+          <label>E-mail *</label>
+        </p-floatlabel>
+      </div>
+
+      <div class="flex justify-end gap-4">
+        <a [routerLink]="['/stakeholders']" class="text-sm text-gray-500">
+          <p-button label="Cancelar" type="button" class="self-end" icon="pi pi-times" severity="secondary">
+          </p-button>
+        </a>
+        <p-button label="Cadastrar" type="submit" class="self-end" icon="pi pi-check" severity="success">
+        </p-button>
+      </div>
+    </form>
+  </p-card>
+</div>
