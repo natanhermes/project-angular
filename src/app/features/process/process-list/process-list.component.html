@@ -1,0 +1,36 @@
+<p-card>
+    <div class="flex justify-between items-center">
+      <app-heading title="Consulta de processos" customTitleClass="text-xl"
+        customClass="p-4 bg-white rounded-t-lg" customSubtitleClass="text-sm"
+        subtitle="Consulte e filtre processos judiciais por grau e tipo de justiça"></app-heading>
+    </div>
+    <app-filter-process></app-filter-process>
+    <p-table [value]="process" stripedRows metaKeySelection="true" dataKey="id">
+      <ng-template #header>
+        <tr>
+          <th class="text-left">Código da unidade</th>
+          <th class="text-left">Assuntos principais</th>
+          <th class="text-left">Classe Judicial</th>
+          <th class="text-center">Grau</th>
+          <th class="text-center">Justiça</th>
+          <th class="text-center">Número do processo</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-process>
+        <tr [pSelectableRow]="process">
+          <td>{{ process.name }}</td>
+          <td>{{ process.type }}</td>
+          <td>{{ process.cpfCnpj }}</td>
+          <td>{{ process.email }}</td>
+          <td>{{ process.email }}</td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage let-process>
+        <tr>
+          <td class="text-center!" colspan="7">Nenhum processo encontrado.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+  

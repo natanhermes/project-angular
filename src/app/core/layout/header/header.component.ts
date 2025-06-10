@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.items = [
       { label: 'Partes Interessadas', icon: 'pi pi-box', routerLink: 'stakeholders' },
+      { label: 'Processos', icon: 'pi pi-box', routerLink: 'process' },
     ];
   }
 }
