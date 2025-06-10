@@ -17,7 +17,6 @@ export class StakeholdersService {
 
   async save(stakeholder: Stakeholder) {
     stakeholder.id = uuid.v4();
-    console.log('stakeholder', stakeholder);
     await db.stakeholders.add(stakeholder);
   }
 
@@ -31,7 +30,6 @@ export class StakeholdersService {
 
   async findAll() {
     const stakeholders = await db.stakeholders.toArray();
-    console.log('stakeholders', stakeholders);
     this.stakeholders = stakeholders;
     return stakeholders;
   }
