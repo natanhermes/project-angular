@@ -9,11 +9,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { JusticePipe } from './pipes/justice.pipe';
 
 @NgModule({
   declarations: [
     HeadingComponent,
-    FilterProcessComponent
+    FilterProcessComponent,
+    JusticePipe
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { FloatLabelModule } from 'primeng/floatlabel';
   ],
   exports: [
     HeadingComponent,
-    FilterProcessComponent
+    FilterProcessComponent,
+    JusticePipe
   ]
 })
 export class SharedModule { }
