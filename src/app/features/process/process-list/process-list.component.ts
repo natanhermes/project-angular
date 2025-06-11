@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ProcessService } from '../process.service';
+import { Filter } from '../../../shared/components/filter-process/filter-process.component';
+import { Observable } from 'rxjs';
 import { Process } from '../process';
 
 @Component({
@@ -7,8 +10,25 @@ import { Process } from '../process';
   templateUrl: './process-list.component.html',
 })
 export class ProcessListComponent {
-  process: Process[] = [];
+  process$: Observable<Process[]>;
 
-  
+  constructor(public processService: ProcessService) {
+    this.process$ = this.processService.pagedProcess$;
+  }
 
+  onFilterChange(filter: Filter) {
+    this.processService.setFilter(filter);
+  }
+
+  getMainTopics(mainTopics: { nome: string; codigo: number }[]): string {
+    return mainTopics.map(topic => topic.nome).join(', ');
+  }
+
+  onNextPage() {
+    this.processService.nextPage();
+  }
+
+  onPreviousPage() {
+    this.processService.previousPage();
+  }
 }

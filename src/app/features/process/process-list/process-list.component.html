@@ -1,36 +1,48 @@
 <p-card>
-    <div class="flex justify-between items-center">
-      <app-heading title="Consulta de processos" customTitleClass="text-xl"
-        customClass="p-4 bg-white rounded-t-lg" customSubtitleClass="text-sm"
-        subtitle="Consulte e filtre processos judiciais por grau e tipo de justiça"></app-heading>
-    </div>
-    <app-filter-process></app-filter-process>
-    <p-table [value]="process" stripedRows metaKeySelection="true" dataKey="id">
-      <ng-template #header>
-        <tr>
-          <th class="text-left">Código da unidade</th>
-          <th class="text-left">Assuntos principais</th>
-          <th class="text-left">Classe Judicial</th>
-          <th class="text-center">Grau</th>
-          <th class="text-center">Justiça</th>
-          <th class="text-center">Número do processo</th>
-          <th></th>
-        </tr>
-      </ng-template>
-      <ng-template #body let-process>
-        <tr [pSelectableRow]="process">
-          <td>{{ process.name }}</td>
-          <td>{{ process.type }}</td>
-          <td>{{ process.cpfCnpj }}</td>
-          <td>{{ process.email }}</td>
-          <td>{{ process.email }}</td>
-        </tr>
-      </ng-template>
-      <ng-template #emptymessage let-process>
-        <tr>
-          <td class="text-center!" colspan="7">Nenhum processo encontrado.</td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </p-card>
-  
+  <div class="flex justify-between items-center">
+    <app-heading title="Consulta de processos" customTitleClass="text-xl" customClass="p-4 bg-white rounded-t-lg"
+      customSubtitleClass="text-sm"
+      subtitle="Consulte e filtre processos judiciais por grau e tipo de justiça"></app-heading>
+    <span class="text-sm italic text-gray-500">
+      A busca inicial é feita com o Tribunal Regional Federal da 1ª Região (TRF1).
+    </span>
+  </div>
+
+  <app-filter-process (filterChange)="onFilterChange($event)"></app-filter-process>
+
+  <p-table [value]="(process$ | async) ?? []" [paginator]="false" [rows]="10" stripedRows metaKeySelection="true" dataKey="id">
+    <ng-template #header>
+      <tr>
+        <th class="w-[100px]">Cód. Unidade</th>
+        <th>Assuntos principais</th>
+        <th>Classe Judicial</th>
+        <th>Grau</th>
+        <th>Justiça</th>
+        <th>Número do processo</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-process>
+      <tr class="cursor-pointer" [pSelectableRow]="process">
+        <td>{{ process.classe.codigo }}</td>
+        <td class="">
+          {{ getMainTopics(process.assuntos) }}
+        </td>
+        <td>{{ process.classe.nome }}</td>
+        <td>{{ process.grau }}</td>
+        <td>{{ process.numeroProcesso | justice }}</td>
+        <td>{{ process.numeroProcesso }}</td>
+      </tr>
+    </ng-template>
+    <ng-template #footer>
+      <div class="flex gap-4 mt-4">
+        <p-button type="button" icon="pi pi-chevron-left" label="Anterior" (click)="onPreviousPage()"></p-button>
+        <p-button type="button" icon="pi pi-chevron-right" label="Próximo" (click)="onNextPage()"></p-button>
+      </div>
+    </ng-template>
+    <ng-template #emptymessage>
+      <tr>
+        <td class="text-center!" colspan="7">Nenhum processo encontrado.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

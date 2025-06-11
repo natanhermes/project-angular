@@ -6,6 +6,10 @@ import { ProcessListComponent } from './process-list/process-list.component';
 import { SharedModule } from '../../shared/shared.module';
 import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
+import { provideHttpClient } from '@angular/common/http';
+import { ProcessService } from './process.service';
+import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -16,7 +20,12 @@ import { CardModule } from 'primeng/card';
     ProcessRoutingModule,
     CardModule,
     TableModule,
-    SharedModule
+    SharedModule,
+    ButtonModule,
+    TagModule,
+  ],
+  providers: [
+    ProcessService
   ]
 })
 export class ProcessModule { }
