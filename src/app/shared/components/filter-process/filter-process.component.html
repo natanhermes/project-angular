@@ -3,15 +3,19 @@
         customSubtitleClass="text-sm"></app-heading>
 
     <form [formGroup]="filterForm" class="flex flex-col gap-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <p-floatlabel class="w-full">
-                <p-select formControlName="degree" inputId="degree" [options]="degrees" class="w-full" />
-                <label>Grau de Jurisdição</label>
+                <p-select formControlName="justice" inputId="justice" [options]="justices" class="w-full" />
+                <label>Tipo de Justiça</label>
+            </p-floatlabel>
+            <p-floatlabel class="w-full">
+                <p-select formControlName="court" inputId="court" [options]="filteredCourts" class="w-full" />
+                <label>Tribunal</label>
             </p-floatlabel>
 
             <p-floatlabel class="w-full">
-                <p-select formControlName="justice" inputId="justice" [options]="justice" class="w-full" />
-                <label>Tipo de Justiça</label>
+                <p-select formControlName="degree" inputId="degree" [options]="degrees" class="w-full" />
+                <label>Grau de Jurisdição</label>
             </p-floatlabel>
         </div>
     </form>
