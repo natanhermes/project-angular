@@ -4,8 +4,6 @@ import { Stakeholder } from './stakeholder';
 import * as uuid from 'uuid';
 import { db } from '../../core/database/db';
 
-const myId = uuid.v4();
-
 @Injectable({
   providedIn: 'root'
 })
