@@ -13,7 +13,7 @@ import { HeaderComponent } from './layout/header/header.component';
   imports: [
     CommonModule,
     RouterModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
   ],
   exports: [
     HeaderComponent,
