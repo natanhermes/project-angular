@@ -10,12 +10,16 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { JusticePipe } from './pipes/justice.pipe';
+import { ModalProcessDetailsComponent } from './components/modal-process-details/modal-process-details.component';
+import { DialogModule } from 'primeng/dialog';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
   declarations: [
     HeadingComponent,
     FilterProcessComponent,
-    JusticePipe
+    JusticePipe,
+    ModalProcessDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -25,12 +29,15 @@ import { JusticePipe } from './pipes/justice.pipe';
     InputTextModule,
     ButtonModule,
     CardModule,    
-    FloatLabelModule
+    FloatLabelModule,
+    DialogModule,
+    TagModule
   ],
   exports: [
     HeadingComponent,
     FilterProcessComponent,
-    JusticePipe
+    JusticePipe,
+    ModalProcessDetailsComponent
   ]
 })
 export class SharedModule { }

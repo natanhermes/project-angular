@@ -10,7 +10,7 @@
 
   <app-filter-process (filterChange)="onFilterChange($event)"></app-filter-process>
 
-  <p-table [value]="(process$ | async) ?? []" [paginator]="false" [rows]="10" stripedRows metaKeySelection="true" dataKey="id">
+  <p-table [value]="(process$ | async) ?? []" selectionMode="single" [(selection)]="selectedProcess" [paginator]="false" [rows]="10" stripedRows metaKeySelection="true" dataKey="id">
     <ng-template #header>
       <tr>
         <th class="w-[100px]">Cód. Unidade</th>
@@ -22,7 +22,7 @@
       </tr>
     </ng-template>
     <ng-template #body let-process>
-      <tr class="cursor-pointer" [pSelectableRow]="process">
+      <tr class="cursor-pointer" [pSelectableRow]="process" (click)="showModal()">
         <td>{{ process.classe.codigo }}</td>
         <td class="">
           {{ getMainTopics(process.assuntos) }}
@@ -45,4 +45,8 @@
       </tr>
     </ng-template>
   </p-table>
+  <app-modal-process-details 
+    [(visible)]="modalVisible"
+    [process]="selectedProcess">
+  </app-modal-process-details>
 </p-card>

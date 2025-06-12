@@ -11,6 +11,12 @@ import { Process } from '../process';
 })
 export class ProcessListComponent {
   process$: Observable<Process[]>;
+  selectedProcess: Process | null = null;
+  modalVisible = false;
+
+  showModal() {
+    this.modalVisible = true;
+  }
 
   constructor(public processService: ProcessService) {
     this.process$ = this.processService.pagedProcess$;
@@ -30,5 +36,10 @@ export class ProcessListComponent {
 
   onPreviousPage() {
     this.processService.previousPage();
+  }
+
+  onRowSelect(process: Process) {
+    this.selectedProcess = process;
+    this.modalVisible = true;
   }
 }

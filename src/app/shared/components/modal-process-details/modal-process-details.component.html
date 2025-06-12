@@ -1,0 +1,35 @@
+<p-dialog [(visible)]="visible" (onHide)="visibleChange.emit(false)" [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '60vw' }" [draggable]="false"
+    [resizable]="false">
+    <ng-template #header>
+        <app-heading title="Detalhes da unidade {{ process?.classe?.codigo }}"
+            subtitle="Informações detalhadas sobre a unidade judicial" classTitle="text-xl"
+            classSubtitle="text-sm"></app-heading>
+    </ng-template>
+    <div *ngIf="process" class="px-4 space-y-8">
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <h3 class="font-bold text-xl mb-2">Informações básicas</h3>
+                <p class="text-sm"><strong>Número do processo:</strong> {{ process.numeroProcesso }}</p>
+                <p class="text-sm"><strong>Classe:</strong> {{ process.classe.nome }}</p>
+                <p class="text-sm"><strong>Grau:</strong> {{ process.grau }}</p>
+                <p class="text-sm"><strong>Justiça:</strong> {{ process.numeroProcesso | justice }}</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-xl mb-2">Detalhes específicos</h3>
+                <p class="text-sm"><strong>Data ajuizamento:</strong> {{ process.dataAjuizamento | date:'dd/MM/yyyy' }}
+                </p>
+                <p class="text-sm"><strong>Orgão julgador:</strong> {{ process.orgaoJulgador.nome }}</p>
+                <p class="text-sm"><strong>Tribunal:</strong> {{ process.tribunal }}</p>
+                <p class="text-sm"><strong>Data última atualização:</strong> {{ process.dataHoraUltimaAtualizacao | date:'dd/MM/yyyy - HH:mm' }}</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1">
+            <h3 class="font-bold text-xl mb-2">Assuntos principais</h3>
+            <div class="flex flex-wrap gap-2">
+                <p-tag *ngFor="let assunto of process.assuntos" [value]="assunto.nome" [rounded]="true" [severity]="'secondary'"></p-tag>
+            </div>
+        </div>
+    </div>
+</p-dialog>
