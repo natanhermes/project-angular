@@ -57,6 +57,6 @@ export class CnjApiService {
     }
 
     return this.http
-      .post<ProcessResponse>(`/api`, { court: filter?.court, payload })
+      .post<ProcessResponse>(`/api/${filter?.court}/_search`, payload)
   }
 }
