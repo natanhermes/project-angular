@@ -11,6 +11,9 @@ import { CoreModule } from './core/core.module';
 import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
 import { authHeaderInterceptor } from './core/interceptors/auth-header.interceptor';
 import { loaderInterceptor } from './core/interceptors/loader.interceptor';
+import { exceptionInterceptor } from './core/interceptors/exception.interceptor';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -20,20 +23,21 @@ import { loaderInterceptor } from './core/interceptors/loader.interceptor';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-
+    ToastModule,
     CoreModule
   ],
   providers: [
     provideAnimationsAsync(),
     provideHttpClient(
-      withInterceptors([authHeaderInterceptor, loaderInterceptor]),
+      withInterceptors([authHeaderInterceptor, loaderInterceptor, exceptionInterceptor]),
       withFetch()
     ),
     providePrimeNG({
       theme: {
         preset: Aura
       }
-    })
+    }),
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

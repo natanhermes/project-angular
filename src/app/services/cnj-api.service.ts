@@ -58,9 +58,5 @@ export class CnjApiService {
 
     return this.http
       .post<ProcessResponse>(`/api/${filter?.court}/_search`, payload)
-      .pipe(catchError(err => {
-        console.error('Erro na requisição:', err);
-        return of({ hits: { hits: [] } } as ProcessResponse);
-      }));
   }
 }
