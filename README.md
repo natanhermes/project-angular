@@ -7,6 +7,8 @@ O projeto consite numa aplicação Angular que permite:
 
 O objetivo do projeto foi criar uma aplicação angular seguindo as boas práticas de código e arquitetura.
 
+Ps.: deploy feito na vercel, mas, devido a limitações da API do CNJ com bloqueio de CORS, não será possível testar o consumo em produção. Em breve criarei um proxy para que seja possível visualizar o projeto completo em produção.
+
 ## Páginas
 ### Home
 ![Home Page](docs/homepage.png)
