@@ -5,7 +5,30 @@ O projeto consite numa aplicação Angular que permite:
 -   Consultar dados públicos de processos judiciais a partir da API do CNJ.
 -   Exibir e filtrar os resultados de forma clara e organizada.
 
+O objetivo do projeto foi criar uma aplicação angular seguindo as boas práticas de código e arquitetura.
 
+## Páginas
+### Home
+![Home Page](docs/homepage.png)
+
+A página inicial apresenta uma interface limpa e intuitiva com:
+- Barra de navegação superior com logo e menu
+- Textos simples de identificando as funções de cada página.
+
+### Partes Interessadas
+
+![Partes Interessadas](docs/stakeholders.png)
+A página apresenta a listagem das partes interessadas que foram cadastradas no sistema e um botão para navegar o usuário até a página de cadastro das partes.
+
+### Consulta de processos
+
+![Consulta de Processos](docs/process.png)
+
+A página possui uma listagem dos processos com base no filtro selecionado. Ao clicar em cada item da lista, é exibido uma modal com as informações detalhadas.
+
+### Informações detalhadas
+![Informações detalhadas](docs/process-details.png)
+Modal contendo as informações detalhadas de cada processo.
 
 ## 1 - Tecnologias
 
