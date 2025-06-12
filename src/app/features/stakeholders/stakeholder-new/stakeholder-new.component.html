@@ -3,28 +3,55 @@
     <app-heading title="Cadastro de Partes Interessadas" customTitleClass="text-xl"></app-heading>
     <form [formGroup]="stakeholderForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-8">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <p-floatlabel>
-          <input type="text" pInputText id="name" class="w-full" formControlName="name" autocomplete="off" />
-          <label>Nome Completo *</label>
-        </p-floatlabel>
+        <div class="flex flex-col">
+          <p-floatlabel>
+            <input type="text" pInputText id="name" class="w-full" formControlName="name" autocomplete="off" />
+            <label>Nome Completo *</label>
+          </p-floatlabel>
+          <small class="text-red-500" *ngIf="stakeholderForm.get('name')?.touched && stakeholderForm.get('name')?.errors">
+            {{ getErrorMessage('name') }}
+          </small>
+        </div>
 
-        <p-floatlabel class="w-full">
-          <p-select formControlName="type" inputId="type" [options]="peopleTypes" class="w-full" />
-          <label>Tipo de Pessoa *</label>
-        </p-floatlabel>
+        <div class="flex flex-col">
+          <p-floatlabel class="w-full">
+            <p-select formControlName="type" inputId="type" [options]="stakeholderTypes" (onChange)="onStakeholderTypeChange($event)" class="w-full" />
+            <label>Tipo de Pessoa *</label>
+          </p-floatlabel>
+          <small class="text-red-500" *ngIf="stakeholderForm.get('type')?.touched && stakeholderForm.get('type')?.errors">
+            {{ getErrorMessage('type') }}
+          </small>
+        </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <p-floatlabel>
-          <p-inputmask id="cpfCnpj" name="cpfCnpj" formControlName="cpfCnpj" mask="999.999.999-99" />
-          <label>CPF/CNPJ *</label>
-        </p-floatlabel>
+        <div class="flex flex-col">
+          <p-floatlabel>
+            <p-inputmask 
+              id="cpfCnpj" 
+              name="cpfCnpj" 
+              formControlName="cpfCnpj"
+              [mask]="stakeholderTypeSelected === 'PF' ? '999.999.999-99' : '99.999.999/9999-99'"
+            />
+            <label>{{ stakeholderTypeSelected === 'PF' ? 'CPF' : 'CNPJ' }}</label>
+          </p-floatlabel>
+          <small 
+            class="text-red-500" 
+            *ngIf="stakeholderForm.get('cpfCnpj')?.touched && stakeholderForm.get('cpfCnpj')?.errors"
+          >
+            {{ getErrorMessage('cpfCnpj') }}
+          </small>
+        </div>
 
-
-        <p-floatlabel>
-          <input pInputText id="email" formControlName="email" class="w-full" autocomplete="off" />
-          <label>E-mail *</label>
-        </p-floatlabel>
+        <div class="flex flex-col">
+          <p-floatlabel>
+            <input pInputText id="email" formControlName="email" class="w-full" autocomplete="off" />
+            <label>E-mail *</label>
+          </p-floatlabel>
+          <small class="text-red-500" *ngIf="stakeholderForm.get('email')?.touched && stakeholderForm.get('email')?.errors">
+            {{ getErrorMessage('email') }}
+          </small>
+        </div>
       </div>
 
       <div class="flex justify-end gap-4">
