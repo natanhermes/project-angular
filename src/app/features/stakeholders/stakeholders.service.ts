@@ -10,12 +10,37 @@ import { db } from '../../core/database/db';
 export class StakeholdersService {
   stakeholders: Stakeholder[] = [];
   constructor() {
-    this.loadStakeholders();
+    this.findAll()
   }
 
-  async save(stakeholder: Stakeholder) {
-    stakeholder.id = uuid.v4();
-    await db.stakeholders.add(stakeholder);
+  async save(stakeholder: Stakeholder): Promise<void> {
+    try {
+      await this.validateUniqueFields(stakeholder);
+      
+      const newStakeholder = {
+        ...stakeholder,
+        id: uuid.v4()
+      };
+      
+      await db.stakeholders.add(newStakeholder);
+    } catch (error) {
+      throw new Error(error as string);
+    }
+  }
+
+  private async validateUniqueFields(stakeholder: Stakeholder): Promise<void> {
+    const [cpfCnpjExists, emailExists] = await Promise.all([
+      this.findByCpfCnpj(stakeholder.cpfCnpj),
+      this.findByEmail(stakeholder.email)
+    ]);
+
+    if (cpfCnpjExists) {
+      throw 'CPF/CNPJ já cadastrado';
+    }
+
+    if (emailExists) {
+      throw 'E-mail já cadastrado';
+    }
   }
 
   async update(id: string, stakeholder: Stakeholder) {
@@ -23,6 +48,10 @@ export class StakeholdersService {
   }
 
   async deleteById(id: string) {
+    const stakeholder = await db.stakeholders.get(id);
+    if (!stakeholder) {
+      throw 'Parte interessada não encontrada';
+    }
     await db.stakeholders.delete(id);
   }
 
@@ -32,11 +61,13 @@ export class StakeholdersService {
     return stakeholders;
   }
 
-  findByCpfCnpj(cpfCnpj: string) {
-    return this.stakeholders.find(stakeholder => stakeholder.cpfCnpj === cpfCnpj);
+  async findByEmail(email: string) {
+    const stakeholders = await db.stakeholders.toArray();
+    return stakeholders.find(stakeholder => stakeholder.email === email);
   }
 
-  private loadStakeholders() {
-
+  async findByCpfCnpj(cpfCnpj: string) {
+    const stakeholders = await db.stakeholders.toArray();
+    return stakeholders.find(stakeholder => stakeholder.cpfCnpj === cpfCnpj);
   }
 }
